@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>入力フォーム</title>
+    </head>
+    <body>
+        <h1>入力フォーム</h1>
+        <!--ここに追加-->
+        <form action="/" method="POST">
+            <div class="form_item">
+                <label for="id">ID</label>
+                <input type="text" id="id" name="id" value="">
+            </div>
+            <div class="form_item">
+                <label for="name">名前</label>
+                <input type="text" id="name" name="name" value="">
+            </div>
+            <div class="form_item">
+                <label for="kana_name">ふりがな</label>
+                <input type="text" id="kana_name" name="kana_name" value="">
+            </div>
+            <div class="form_item">
+                <label for="gender">性別</label>
+                <input type="text" id="gender" name="gender" value="">
+            </div>
+            <div class="form_item">
+                <label for="email">メールアドレス</label>
+                <input type="text" id="email" name="email" value="">
+            </div>
+            <div class="form_item">
+                <label for="phone">電話番号</label>
+                <input type="text" id="phone" name="phone" value="">
+            </div>
+            <div class="form_item">
+                <label for="address">住所</label>
+                <input type="text" id="address" name="address" value="">
+            </div>
+            <div class="form_item">
+                <label for="workplace">都道府県</label>
+                <input type="text" id="workplace" name="workplace" value="">
+            </div>
+            <div class="form_item">
+                <label for="household">世帯</label>
+                <input type="text" id="household" name="household" value="">
+            </div>
+            <button type="submit" id="submit" onclick="return buttonClick()">追加</button>
+        </form>
+    </body>
+    <style>
+        input {
+            position: absolute;
+            left: 130px;
+        }
+
+        button {
+            position: absolute;
+            left: 235px;
+        }
+    </style>
+    <script>
+        //ボタンがクリックされたとき
+        function buttonClick() {
+            //nameの変数宣言
+            let name = document.getElementById('name');
+            //半角英字とドットの正規表現
+            let reg1 = /^[a-zA-Z.]+$/
+            //emailの変数宣言
+            let email = document.getElementById('email');
+            //メールアドレスの正規表現
+            let reg2 = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/
+            //nameが空だった場合
+            if (name.value == "") {
+                alert("名前が未入力です。");
+                return false;
+            }
+            //nameが正しく入力されていなかった場合
+            if (!name.value.match(reg1)) {
+                alert("名前を正しく入力してください。");
+                return false;
+            }
+            //emailが空だった場合
+            if (email.value == "") {
+                alert("メールアドレスが未入力です。");
+                return false;
+            }
+            //emailが正しく入力されなかった場合
+            if (!email.value.match(reg2)) {
+                alert("メールアドレスを正しく入力してください。");
+                return false;
+            }
+            //trueだったら送信される
+            return true;
+        }
+    </script>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/new/public/style.css">
+        <title>顧客情報管理システム</title>
+    </head>
+    <body>
+        <div class="table1">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>名前</th>
+                    <th>ふりがな</th>
+                    <th>性別</th>
+                    <th>メールアドレス</th>
+                    <th>電話番号</th>
+                    <th>住所</th>
+                    <th>都道府県</th>
+                    <th>世帯</th>
+                    <th>更新</th>
+                    <th>削除</th>
+                </tr>
+                <tbody id="list">
+                    <% personas.forEach(function(value) { %>
+                        <tr>
+                            <td id="td">
+                                <%= value.id %>
+                            </td>
+                            <td>
+                                <%= value.name %>
+                            </td>
+                            <td>
+                                <%= value.kana_name %>
+                            </td>
+                            <td>
+                                <%= value.gender %>
+                            </td>
+                            <td>
+                                <%= value.email %>
+                            </td>
+                            <td>
+                                <%= value.phone %>
+                            </td>
+                            <td>
+                                <%= value.address %>
+                            </td>
+                            <td>
+                                <%= value.workplace %>
+                            </td>
+                            <td>
+                                <%= value.household %>
+                            </td>
+                            <td><a href="/edit/<%= value.id %>"><button>更新</button></a></td>
+                            <td><a href="/delete/<%= value.id %>"><button>削除</button></a></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                    <thead id="list2">
+                    </thead>
+            </table>
+            <p><input type="text" id="searchText" placeholder="検索キーワードを入力"></p>
+            <p><button id="checkButton1">検索</button></p>
+            <p class="newmember"><a href="/create">ユーザーの追加</a></p>
+        </div>
+        <style>
+            table,
+            th,
+            td {
+                font-size: 12px;
+                border: 1px #000 solid;
+                border-collapse: collapse;
+                padding: 10px;
+            }
+
+            th {
+                color: #fff;
+                background-color: #777;
+            }
+
+            td {
+                text-align: center;
+            }
+
+            .table1 {
+                display: flex;
+            }
+
+            input {
+                margin: 0 20px;
+            }
+
+            .newmember {
+                position: absolute;
+                top: 70px;
+                left: 1020px;
+            }
+        </style>
+        <script type="text/javascript">
+            function buttonClick1() {
+                let list = document.getElementById('list');
+                list.remove()
+                usersSearch1();
+            }
+            //変数宣言
+            let checkButton1 = document.getElementById("checkButton1");
+            checkButton1.addEventListener("click", buttonClick1);
+            //名前を検索して表示させる機能を追加
+            function usersSearch1() {
+                let memberUser = JSON.parse('<%= JSON.stringify(personas) %>'.replace(/&#34;/g, '"'));
+                //空の配列を用意
+                let newMember1 = [];
+                for (let i = 0; i < memberUser.length; i++) {
+                    let input = document.getElementById("searchText");
+                    let getValue1 = input.value;
+                    let getName = memberUser[i].name;
+                    //文字列を検索
+                    let members = getName.indexOf(getValue1);
+                    if (members !== -1) {
+                        //空の配列に追加する
+                        newMember1.push(memberUser[i]);
+                        console.log(newMember1);
+                    }
+                }
+                //ブラウザに表示
+                newMember1.forEach(function (value) {
+                    let td = document.getElementById('list2');
+                    td.insertAdjacentHTML(
+                        "beforebegin",
+                        `<tr class=memberUser><td>${value.id}</td><td>${value.name}</td><td>${value.kana_name}</td><td>${value.gender}</td><td>${value.email}</td><td>${value.phone}</td><td>${value.address}</td><td>${value.workplace}</td><td>${value.household}</td><td><button>更新</button></td><td><button>削除</button></td></tr>`
+                        );
+                });
+            }
+        </script>
+    </body>
+</html>

@@ -20,6 +20,7 @@
                     <th>世帯</th>
                     <th>更新</th>
                     <th>削除</th>
+                    <th>選択</th>
                 </tr>
                 <tbody id="list">
                     <% personas.forEach(function(value) { %>
@@ -53,6 +54,7 @@
                             </td>
                             <td><a href="/edit/<%= value.id %>"><button>更新</button></a></td>
                             <td><a href="/delete/<%= value.id %>"><button>削除</button></a></td>
+                            <td><a href="/selection/<%= value.id %>"><button>選択</button></a></td>
                         </tr>
                         <% }); %>
                     </tbody>
@@ -61,7 +63,8 @@
             </table>
             <p><input type="text" id="searchText" placeholder="検索キーワードを入力"></p>
             <p><button id="checkButton1">検索</button></p>
-            <p class="newmember"><a href="/create">ユーザーの追加</a></p>
+            <p class="newmember1"><a href="/create1">ユーザーの追加</a></p>
+            <p class="newmember2"><a href="/create2">選択した情報一覧</a></p>
         </div>
         <style>
             table,
@@ -90,10 +93,16 @@
                 margin: 0 20px;
             }
 
-            .newmember {
+            .newmember1 {
                 position: absolute;
                 top: 70px;
-                left: 1020px;
+                left: 1080px;
+            }
+
+            .newmember2 {
+                position: absolute;
+                top: 110px;
+                left: 1080px;
             }
         </style>
         <script type="text/javascript">
@@ -132,7 +141,6 @@
                         );
                 });
             }
-            //コメントアウト
         </script>
     </body>
 </html>

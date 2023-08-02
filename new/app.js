@@ -29,9 +29,14 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/create", (req, res) => {
+app.get("/create1", (req, res) => {
   res.sendFile(path.join(__dirname, "/views/html/form.html"));
 });
+
+app.get("/create2", (req, res) => {
+  res.sendFile(path.join(__dirname, "/views/html/selection.html"));
+});
+
 
 app.get("/edit/:id", (req, res) => {
   const sql = "SELECT * FROM personas WHERE id = ?";

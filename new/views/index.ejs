@@ -24,8 +24,8 @@
                 </tr>
                 <tbody id="list">
                     <% personas.forEach(function(value) { %>
-                        <tr>
-                            <td id="td">
+                        <tr class="items">
+                            <td>
                                 <%= value.id %>
                             </td>
                             <td>
@@ -54,17 +54,17 @@
                             </td>
                             <td><a href="/edit/<%= value.id %>"><button>更新</button></a></td>
                             <td><a href="/delete/<%= value.id %>"><button>削除</button></a></td>
-                            <td><a href="/selection/<%= value.id %>"><button>選択</button></a></td>
+                            <td><a href="/selection/<%= value.id %>"><button class="selectButton">選択</button></a></td>
                         </tr>
                         <% }); %>
-                    </tbody>
-                    <thead id="list2">
-                    </thead>
+                </tbody>
+                <thead id="list2">
+                </thead>
             </table>
             <p><input type="text" id="searchText" placeholder="検索キーワードを入力"></p>
             <p><button id="checkButton1">検索</button></p>
             <p class="newmember1"><a href="/create1">ユーザーの追加</a></p>
-            <p class="newmember2"><a href="/create2">選択した情報一覧</a></p>
+            <p class="newmember2" id="show-selected"><a href="/create2">選択した情報一覧</a></p>
         </div>
         <style>
             table,
@@ -110,12 +110,13 @@
             function buttonClick1() {
                 let list = document.getElementById('list');
                 list.remove()
+                //名前を検索して表示させる処理をする関数を実行
                 usersSearch1();
             }
             //変数宣言
             let checkButton1 = document.getElementById("checkButton1");
             checkButton1.addEventListener("click", buttonClick1);
-            //名前を検索して表示させる機能を追加
+            //名前を検索して表示させる処理
             function usersSearch1() {
                 let memberUser = JSON.parse('<%= JSON.stringify(personas) %>'.replace(/&#34;/g, '"'));
                 //空の配列を用意
@@ -129,7 +130,6 @@
                     if (members !== -1) {
                         //空の配列に追加する
                         newMember1.push(memberUser[i]);
-                        console.log(newMember1);
                     }
                 }
                 //ブラウザに表示
@@ -138,9 +138,67 @@
                     td.insertAdjacentHTML(
                         "beforebegin",
                         `<tr class=memberUser><td>${value.id}</td><td>${value.name}</td><td>${value.kana_name}</td><td>${value.gender}</td><td>${value.email}</td><td>${value.phone}</td><td>${value.address}</td><td>${value.workplace}</td><td>${value.household}</td><td><button>更新</button></td><td><button>削除</button></td></tr>`
-                        );
+                    );
                 });
             }
+            // 選択した情報を格納する配列
+            const selectedItems = [];
+            // テーブル内の選択ボタンを取得
+            const selectButtons = document.querySelectorAll('.selectButton');
+            const items = document.querySelectorAll('.items');
+            // 選択ボタンをクリックしたときの処理
+            for (let j = 0; j < selectButtons.length; j++) {
+                selectButtons[j].addEventListener('click', () => {
+                    items[j].remove();
+                    selectedItems.push(items[j]);
+                    console.log(selectedItems);
+                });
+            }
+            // 選択情報一覧ボタンを取得
+            const showSelectedButton = document.getElementById('show-selected');
+            // 選択情報一覧ボタンにクリックイベントを追加
+            showSelectedButton.addEventListener('click', () => {
+                // 選択情報をJSON文字列に変換して別ページに渡す
+                const selectedItemsJson = JSON.stringify(selectctededItems);
+                localStorage.setItem('selectedItems', selectedItemsJson);
+                // 別ページに画面を遷移
+                window.location.href = '/new/views/html/selection.html';
+            })
+
+            // テーブル要素を取得
+            const table = document.getElementById("list");
+            // テーブル内の各行にクリックイベントリスナーを追加
+            table.addEventListener("click", function (event) {
+                const clickedRow = event.target.closest("tr");
+                console.log(clickedRow)
+                if (clickedRow) {
+                    // 選択された行のIDを取得
+                    const rowId = clickedRow.getAttribute("data-id");
+                    // ローカルストレージに選択された行のデータを保存
+                    localStorage.setItem("selectedRowData", JSON.stringify({ id: rowId }));
+                }
+            });
+
+            // <selectBut></selectBut>tons.forEach((button, indkyex) => {
+            //     button.addEventListener('click', () => {
+            //         const row = button.parentNode.parentNode;
+            //         let list = document.getElementById('list');
+            //         let id = list.rows[0].cells[0].textContent;
+            //         const  = list.rows[0].cells[1].textContent;
+            //         const kana_name = list.rows[0].cells[2].textContent;
+            //         const gender = list.rows[0].cells[3].textContent;
+            //         const email = list.rows[0].cells[4].textContemads0o9iant;
+            //         const phone = list.rows[0].cells[5].textContent;
+            //         const address = list.rows[0].cells[6].textContent;
+            //         const workplace = list.rows[0].cells[7].textContent;
+            //         const household = list.rows[0].cells[8].textContent;
+            //         // 選択した情報を配列に追加
+            //         selectedItems.push({ id, name, kana_name, gender, email, phone, address, workplace, household});
+            //         // 選択した情報を表示
+            //         kannsuuworder-kannsuuworder-ywrapkennsakusotehyujisasreukinoieotuika.log(`${id}, ${name}, ${kana_name}, ${gender}, ${email}, ${phone}, ${address}, ${workplace}, ${household}`);
+            //         // 選択したセルを削除
+            //         row.parentNode.removeChild(row);
+
         </script>
     </body>
 </html>

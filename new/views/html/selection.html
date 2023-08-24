@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1>選択した情報一覧</h1>
-        <form action="/update/<%= user[0].id %>" method="POST">
+        <!-- <form action="/update/<%= user[0].id %>" method="POST">
             <p>id <input type="text" name="id" value="<%= user[0].id %>"></p>
             <p>名前 <input type="text" name="name" value="<%= user[0].name %>"></p>
             <p>ふりがな <input type="text" name="kana_name" value="<%= user[0].kana_name %>"></p>
@@ -17,6 +17,11 @@
             <p>都道府県 <input type="text" name="workplace" value="<%= user[0].workplace %>"></p>
             <p>世帯 <input type="text" name="household" value="<%= user[0].household %>"></p>
             <button type="submit">更新</button>
-        </form>
+        </form> -->
     </body>
-    </html>
+    <script>
+        //ローカルストレージからデータを取得
+        const selectedItems = JSON.parse(localStorage.getItem('selectedItems'));
+        console.log(selectedItems);
+    </script>
+</html>

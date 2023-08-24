@@ -152,53 +152,24 @@
                     items[j].remove();
                     selectedItems.push(items[j]);
                     console.log(selectedItems);
-                });
+                })
+                //選択されたデータをローカルストレージに保存
+                localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+                //画面を遷移
+                window.location.href = 'http://localhost:3000';
             }
-            // 選択情報一覧ボタンを取得
-            const showSelectedButton = document.getElementById('show-selected');
-            // 選択情報一覧ボタンにクリックイベントを追加
-            showSelectedButton.addEventListener('click', () => {
-                // 選択情報をJSON文字列に変換して別ページに渡す
-                const selectedItemsJson = JSON.stringify(selectctededItems);
-                localStorage.setItem('selectedItems', selectedItemsJson);
-                // 別ページに画面を遷移
-                window.location.href = '/new/views/html/selection.html';
-            })
 
-            // テーブル要素を取得
-            const table = document.getElementById("list");
-            // テーブル内の各行にクリックイベントリスナーを追加
-            table.addEventListener("click", function (event) {
-                const clickedRow = event.target.closest("tr");
-                console.log(clickedRow)
-                if (clickedRow) {
-                    // 選択された行のIDを取得
-                    const rowId = clickedRow.getAttribute("data-id");
-                    // ローカルストレージに選択された行のデータを保存
-                    localStorage.setItem("selectedRowData", JSON.stringify({ id: rowId }));
-                }
-            });
 
-            // <selectBut></selectBut>tons.forEach((button, indkyex) => {
-            //     button.addEventListener('click', () => {
-            //         const row = button.parentNode.parentNode;
-            //         let list = document.getElementById('list');
-            //         let id = list.rows[0].cells[0].textContent;
-            //         const  = list.rows[0].cells[1].textContent;
-            //         const kana_name = list.rows[0].cells[2].textContent;
-            //         const gender = list.rows[0].cells[3].textContent;
-            //         const email = list.rows[0].cells[4].textContemads0o9iant;
-            //         const phone = list.rows[0].cells[5].textContent;
-            //         const address = list.rows[0].cells[6].textContent;
-            //         const workplace = list.rows[0].cells[7].textContent;
-            //         const household = list.rows[0].cells[8].textContent;
-            //         // 選択した情報を配列に追加
-            //         selectedItems.push({ id, name, kana_name, gender, email, phone, address, workplace, household});
-            //         // 選択した情報を表示
-            //         kannsuuworder-kannsuuworder-ywrapkennsakusotehyujisasreukinoieotuika.log(`${id}, ${name}, ${kana_name}, ${gender}, ${email}, ${phone}, ${address}, ${workplace}, ${household}`);
-            //         // 選択したセルを削除
-            //         row.parentNode.removeChild(row);
-
+            // // 選択情報一覧ボタンを取得
+            // const showSelectedButton = document.getElementById('show-selected');
+            // // 選択情報一覧ボタンにクリックイベントを追加
+            // showSelectedButton.addEventListener('click', () => {
+            //     // 選択情報をJSON文字列に変換して別ページに渡す
+            //     const selectedItemsJson = JSON.stringify(selectctededItems);
+            //     localStorage.setItem('selectedItems', selectedItemsJson);
+            //     // 別ページに画面を遷移
+            //     window.location.href = '/new/views/html/selection.html';
+            // })
         </script>
     </body>
 </html>

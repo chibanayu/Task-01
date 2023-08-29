@@ -22,9 +22,9 @@
                     <th>削除</th>
                     <th>選択</th>
                 </tr>
-                <tbody id ="list">
+                <tbody id="list">
                     <% personas.forEach(function(value) { %>
-                        <tr class ="items">
+                        <tr class="items">
                             <td>
                                 <%= value.id %>
                             </td>
@@ -66,8 +66,24 @@
             <p class="newmember1"><a href="/create1">ユーザーの追加</a></p>
         </div>
         <h3>選択された情報を表示</h3>
-        <ul id="arrayList"></ul>
-
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>名前</th>
+                <th>ふりがな</th>
+                <th>性別</th>
+                <th>メールアドレス</th>
+                <th>電話番号</th>
+                <th>住所</th>
+                <th>都道府県</th>
+                <th>世帯</th>
+                <th>更新</th>
+                <th>削除</th>
+                <th>選択</th>
+            </tr>
+            <tbody id="arrayList">
+            </tbody>
+        </table>
         <style>
             table,
             th,
@@ -149,22 +165,22 @@
             const selectButtons = document.querySelectorAll('.selectButton');
             const items = document.querySelectorAll('.items');
             console.log(items);
-            //選択ボタンをクリックしたときの処理
-            for (let j = 0; j < selectButtons.length; j++) {
-                selectButtons[j].addEventListener('click', () => {
-                    items[j].remove();
-                    selectedItems.push(items[j]);
-                    console.log(selectedItems);
-                })
+                //選択ボタンをクリックしたときの処理
+                for (let j = 0; j < selectButtons.length; j++) {
+                    selectButtons[j].addEventListener('click', () => {
+                        items[j].remove();
+                        selectedItems.push(items[j]);
+                        console.log(selectedItems);
+                    })
+                }
                 //ブラウザに表示
                 selectedItems.forEach(function (value) {
-                let ul = document.getElementById('arrayList');
-                ul.insertAdjacentHTML(
-                    "beforebegin",
+                    let arrayList = document.getElementById('arrayList');
+                    arrayList.insertAdjacentHTML(
+                        "beforebegin",
                         `<tr class=items><td>${value.id}</td><td>${value.name}</td><td>${value.kana_name}</td><td>${value.gender}</td><td>${value.email}</td><td>${value.phone}</td><td>${value.address}</td><td>${value.workplace}</td><td>${value.household}</td><td><button>更新</button></td><td><button>削除</button></td><td><button>選択</button></td></tr>`
                     );
                 });
-            }
         </script>
     </body>
 </html>
